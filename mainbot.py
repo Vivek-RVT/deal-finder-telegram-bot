@@ -1,13 +1,20 @@
-from telegram.ext import Updater, MessageHandler, Filters
+import telegram
 
-def get_chat_id(update, context):
-    chat_id = update.message.chat_id
-    print(f"Chat ID: {chat_id}")
-    update.message.reply_text(f"Group Chat ID: {chat_id}")
+# Bot token and group chat ID
+bot_token = "7554246388:AAH1Gm3ceRjWgKar1Flr_HnHrMfI4nhl2wA"
+group_chat_id = "-1002472380202"
 
-updater = Updater("7554246388:AAH1Gm3ceRjWgKar1Flr_HnHrMfI4nhl2wA")
-dp = updater.dispatcher
-dp.add_handler(MessageHandler(Filters.text, get_chat_id))
+# Initialize the bot
+bot = telegram.Bot(token=bot_token)
 
-updater.start_polling()
-updater.idle()
+# Function to send a message
+def send_deal_to_group(deal_message):
+    try:
+        bot.send_message(chat_id=group_chat_id, text=deal_message)
+        print("Deal sent successfully!")
+    except Exception as e:
+        print(f"Failed to send deal: {e}")
+
+# Example: Sending a test deal message
+deal_message = "🔥 Amazing Deal: Buy 1 Get 1 Free on Shoes! 🛒 Grab it now at https://example.com/deal"
+send_deal_to_group(deal_message)
